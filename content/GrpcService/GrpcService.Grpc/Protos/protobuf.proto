@@ -49,7 +49,6 @@ message GetFromDataBaseResponse {
 }
 
 message SendToQueueRequest {
-    string Id = 1;
     string Description = 2;
 }
 message SendToQueueResponse {

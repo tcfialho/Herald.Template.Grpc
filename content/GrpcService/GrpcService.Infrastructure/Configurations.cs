@@ -19,7 +19,7 @@ using GrpcService.Infrastructure.Repositories;
 using GrpcService.Application.Infrastructure.Repositories;
 #endif
 #if (!noqueue)
-using Herald.MessageQueue.RabbitMq;
+using Herald.MessageQueue.Sqs;
 #endif
 #if (!noexternalapi)
 using Refit;
@@ -65,7 +65,7 @@ namespace GrpcService.Infrastructure
 #if (!noqueue)
         public static IServiceCollection AddQueues(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMessageQueueRabbitMq(setup => configuration.GetSection("MessageQueueOptions").Bind(setup));
+            services.AddMessageQueueSqs(setup => configuration.GetSection("MessageQueueOptions").Bind(setup));
 
             return services;
         }

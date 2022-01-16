@@ -3,21 +3,27 @@ version: '3.4'
 services:
     grpcservice.grpc:
         image: ${DOCKER_REGISTRY-}grpcservicegrpc
+        restart: unless-stopped
         environment:
             - ASPNETCORE_URLS=https://+:443;http://+:80
             - ASPNETCORE_ENVIRONMENT=Development
-            - MessageQueueOptions__HostName=rabbitmq
+            - AWS_ACCESS_KEY_ID=guest
+            - AWS_SECRET_ACCESS_KEY=guest
+            - AWS_DEFAULT_REGION=us-east-1
             - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=postgres;User Id=admin;Password=password;
+            - MessageQueueOptions__ServiceURL=http://localstack:4566
+            - MessageQueueOptions__Region=us-east-1
+            - MessageQueueOptions__GroupId=WorkerService
+            - MessageQueueOptions__WaitTimeSeconds=1
+            - MessageQueueOptions__VisibilityTimeout=1
+            - MessageQueueOptions__EnableFifo=true
+            - MessageQueueOptions__RequestDelaySeconds=2
         ports:
             - "5001:443"
             - "5000:80"
         build:
             context: .
             dockerfile: GrpcService.Grpc/Dockerfile
-        depends_on:
-            - rabbitmq
-            - rabbitmq-create-queues
-        links: ["rabbitmq", "rabbitmq-create-queues"]
         volumes:
             - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
             - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

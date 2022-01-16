@@ -45,6 +45,14 @@
             "dependsOn": [
                 "build"
             ]
+        },
+		{
+            "label": "docker-compose",
+            "type": "shell",
+            "command": "docker-compose -f ${workspaceFolder}/docker-compose.yml up -d --build",
+            "dependsOn": [
+                "build"
+            ]
         }
     ]
 }
