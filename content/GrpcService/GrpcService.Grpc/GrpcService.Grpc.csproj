@@ -1,28 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>5bc6f985-346e-486e-8c5c-957b8d6b0598</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UserSecretsId>5bc6f985-346e-486e-8c5c-957b8d6b0598</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.41.0" />
-    <PackageReference Include="Herald.Web.Swagger" Version="1.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="**\.keep" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GrpcService.Application\GrpcService.Application.csproj" />
-    <ProjectReference Include="..\GrpcService.Infrastructure\GrpcService.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.41.0" />
+		<PackageReference Include="Herald.Web.Swagger" Version="1.2.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Protos\google\annotations.proto" />
-    <Protobuf Include="Protos\protobuf.proto" GrpcServices="Server" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\GrpcService.Application\GrpcService.Application.csproj" />
+		<ProjectReference Include="..\GrpcService.Infrastructure\GrpcService.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Protos\google\annotations.proto" />
+		<Protobuf Include="Protos\protobuf.proto" GrpcServices="Server" />
+	</ItemGroup>
 
 </Project>
