@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Thiago Fialho",
+    "classifications": ["Herald", "gRPC"],
+    "identity": "Herald.Template.gRPC",
+    "name": "Herald Template gRPC",
+    "shortName": "herald-grpc",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "sourceName": "GrpcApi",
+    "preferNameDirectory": true,
+    "placeholderFilename": ".keep",
+    "symbols": {
+        "no-database": {
+            "description": "Put database sample into generated project.",
+            "type": "parameter",
+            "dataType": "bool",
+            "defaultValue": "false"
+        },
+        "no-queue": {
+            "description": "Put queue sample into generated project.",
+            "type": "parameter",
+            "dataType": "bool",
+            "defaultValue": "false"
+        },
+        "no-externalapi": {
+            "description": "Put external api sample into generated project.",
+            "type": "parameter",
+            "dataType": "bool",
+            "defaultValue": "false"
+        },
+        "nodatabase": {
+            "type": "computed",
+            "value": "(no-database)"
+        },
+        "noqueue": {
+            "type": "computed",
+            "value": "(no-queue)"
+        },
+        "noexternalapi": {
+            "type": "computed",
+            "value": "(no-externalapi)"
+        }
+    },
+    "primaryOutputs": [{
+            "path": "GrpcApi.Grpc.sln"
+        }
+    ],
+    "sources": [{
+            "modifiers": [{
+                    "rename": {
+                        "dockerignore": ".dockerignore",
+                        "gitignore": ".gitignore"
+                    }
+                }, {
+                    "condition": "(nodatabase)",
+                    "exclude": [
+                        "**/GetFromDataBase/**/*",
+                        "**/Migrations/**/*",
+                        "**/Persistance/**/*",
+                        "**/Repositories/**/*",
+                        "**/Entities/*.cs"
+                    ]
+                }, {
+                    "condition": "(noqueue)",
+                    "exclude": [
+                        "**/SendToQueue/**/*"
+                    ]
+                }, {
+                    "condition": "(noexternalapi)",
+                    "exclude": [
+                        "**/GetFromExternalApi/**/*",
+                        "**/WebServices/**/*"
+                    ]
+                }
+            ]
+        }
+    ],
+    "SpecialCustomOperations": {
+        "**/*.yml": {
+            "operations": [{
+                    "type": "conditional",
+                    "configuration": {
+                        "if": ["#if"],
+                        "else": ["#else"],
+                        "elseif": ["#elseif"],
+                        "endif": ["#endif"],
+                        "actionableIf": ["##if"],
+                        "actionableElse": ["##else"],
+                        "actionableElseif": ["##elseif"],
+                        "actions": ["uncomment", "reduceComment"],
+                        "trim": "true",
+                        "wholeLine": "true",
+                        "evaluator": "C++"
+                    }
+                }
+            ]
+        }
+    }
+}
