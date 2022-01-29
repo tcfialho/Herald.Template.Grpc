@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "protos/google/annotations.proto";
+
+option csharp_namespace = "GrpcApi.Grpc";
+
+package GrpcApi;
+
+service GrpcApi {
+//#if (!nodatabase)
+  rpc GetFromDataBase (GetFromDataBaseRequest) returns (GetFromDataBaseResponse){
+    option (google.api.http) = {
+      get: "/GrpcApi"
+    };
+  }
+//#endif
+//#if (!noqueue)
+  rpc SendToQueue (SendToQueueRequest) returns (SendToQueueResponse){
+    option (google.api.http) = {
+      post: "/GrpcApi"
+      body : "*"
+    };
+  }
+//#endif
+//#if (!noexternalapi)
+  rpc GetFromExternalApi (GetFromExternalApiRequest) returns (GetFromExternalApiResponse){
+    option (google.api.http) = {
+      get: "/GrpcApi/{PostalCode}"
+    };
+  }
+//#endif
+}
+//#if (!nodatabase)
+message Something {
+    string Id = 1;
+    string Description = 2;
+    OtherThing OtherThing = 3;
+}
+message OtherThing {
+    string Id = 1;
+    string Description = 2;
+}
+message GetFromDataBaseRequest {
+}
+message GetFromDataBaseResponse {
+    repeated Something Somethings = 1;
+}
+//#endif
+//#if (!noqueue)
+message SendToQueueRequest {
+    string Description = 2;
+}
+message SendToQueueResponse {
+}
+//#endif
+//#if (!noexternalapi)
+message GetFromExternalApiRequest {
+    string PostalCode = 1;
+}
+message GetFromExternalApiResponse {
+    string Cep = 1;
+    string State = 2;
+    string City = 3;
+    string Neighborhood = 4;
+    string Street = 5;
+}
+//#endif
