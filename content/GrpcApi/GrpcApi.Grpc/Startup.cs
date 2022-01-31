@@ -1,6 +1,7 @@
 ﻿using GrpcApi.Application;
 using GrpcApi.Infrastructure;
 
+using Herald.Observability.Jaeger.Configurations;
 using Herald.Web.Swagger;
 
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +47,8 @@ namespace GrpcApi.Grpc
 #if (!nodatabase)
             services.AddRepositories(Configuration);
 #endif
+            services.AddJaegerTracing(setup => Configuration.GetSection("JaegerOptions").Bind(setup));
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
