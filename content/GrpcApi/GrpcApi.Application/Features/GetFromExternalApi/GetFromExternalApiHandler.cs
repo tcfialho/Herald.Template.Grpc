@@ -1,12 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-
 using Herald.Result;
-
 using Mapster;
-
 using MediatR;
-
 using GrpcApi.Application.Infrastructure.WebServices;
 
 namespace GrpcApi.Application.Features.GetAddressByPostalCode

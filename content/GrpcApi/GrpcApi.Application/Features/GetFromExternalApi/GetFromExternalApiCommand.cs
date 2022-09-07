@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using Herald.Result;
-
 using MediatR;
 
 namespace GrpcApi.Application.Features.GetAddressByPostalCode
