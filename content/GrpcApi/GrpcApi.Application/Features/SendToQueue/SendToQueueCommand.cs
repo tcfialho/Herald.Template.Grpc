@@ -1,4 +1,4 @@
-﻿using System;
+﻿#if (sqs || kafka || rabbitmq || azure)
 using System.ComponentModel.DataAnnotations;
 
 using Herald.Result;
@@ -10,9 +10,7 @@ namespace GrpcApi.Application.Features.SendToQueue
     public partial class SendToQueueCommand : IRequest<Result>
     {
         [Required]
-        public Guid Id { get; protected set; }
-
-        [Required]
         public string Description { get; set; }
     }
 }
+#endif

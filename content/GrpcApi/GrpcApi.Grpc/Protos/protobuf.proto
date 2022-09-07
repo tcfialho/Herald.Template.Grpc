@@ -47,10 +47,17 @@ message GetFromDataBaseResponse {
 }
 //#endif
 //#if (!noqueue)
+enum Status
+{
+    Sucess = 0;
+    Fail = 1;
+    NotFound = 2;
+}
 message SendToQueueRequest {
     string Description = 2;
 }
 message SendToQueueResponse {
+    Status Status = 1;
 }
 //#endif
 //#if (!noexternalapi)

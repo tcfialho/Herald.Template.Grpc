@@ -1,4 +1,4 @@
-﻿
+﻿#if (postgre || mysql || sqlserver)
 using Microsoft.EntityFrameworkCore;
 
 using GrpcApi.Application.Entities;
@@ -12,7 +12,7 @@ namespace GrpcApi.Infrastructure.Persistance
 
         public EntityContext()
         {
-            //dotnet ef migrations add MyMigration --project ..\GrpcApi.Infrastructure
+            //dotnet ef --startup-project GrpcApi.Grpc migrations add Initial --project GrpcApi.Infrastructure
 
             this.Database.EnsureCreated();
         }
@@ -27,3 +27,4 @@ namespace GrpcApi.Infrastructure.Persistance
         }
     }
 }
+#endif

@@ -3,14 +3,15 @@ using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-#if (!noexternalapi)
-using GrpcApi.Application.Features.GetAddressByPostalCode;
-#endif
-#if (!nodatabase)
+#if (postgre || mysql || sqlserver)
+using GrpcApi.Application.Entities;
 using GrpcApi.Application.Features.GetFromDataBase;
 #endif
-#if (!noqueue)
+#if (sqs || kafka || rabbitmq || azure)
 using GrpcApi.Application.Features.SendToQueue;
+#endif
+#if (!noexternalapi)
+using GrpcApi.Application.Features.GetAddressByPostalCode;
 #endif
 
 namespace GrpcApi.Grpc
@@ -25,23 +26,23 @@ namespace GrpcApi.Grpc
             _logger = logger;
         }
 
-#if (!nodatabase)
+#if (postgre || mysql || sqlserver)
         public override async Task<GetFromDataBaseResponse> GetFromDataBase(GetFromDataBaseRequest request, ServerCallContext context)
         {
             var command = new GetFromDataBaseCommand();
             var result = await _mediator.Send(command);
             var response = new GetFromDataBaseResponse();
-            response.Somethings.AddRange(result.GetValue().Adapt<Something[]>());
+            response.Somethings.AddRange(result.Data.Adapt<Something[]>());
             return response;
         }
 #endif
 
-#if (!noqueue)
+#if (sqs || kafka || rabbitmq || azure)
         public override async Task<SendToQueueResponse> SendToQueue(SendToQueueRequest request, ServerCallContext context)
         {
             var command = request.Adapt<SendToQueueCommand>();
             var result = await _mediator.Send(command);
-            var respose = result.GetValue().Adapt<SendToQueueResponse>();
+            var respose = result.Adapt<SendToQueueResponse>();            
             return respose;
         }
 #endif
@@ -51,7 +52,7 @@ namespace GrpcApi.Grpc
         {
             var command = request.Adapt<GetFromExternalApiCommand>();
             var result = await _mediator.Send(command);
-            var respose = result.GetValue().Adapt<GetFromExternalApiResponse>();
+            var respose = result.Data.Adapt<GetFromExternalApiResponse>();
             return respose;
         }
 #endif

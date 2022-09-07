@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcApi.Application", "Grpc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcApi.Tests", "GrpcApi.Tests\GrpcApi.Tests.csproj", "{9D26A38C-D21E-4673-B3A5-A6B9EAD9EE53}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B58BCC0E-E4BF-4CAF-92BD-11472EBED4D5}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", ".docker/docker-compose.dcproj", "{B58BCC0E-E4BF-4CAF-92BD-11472EBED4D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

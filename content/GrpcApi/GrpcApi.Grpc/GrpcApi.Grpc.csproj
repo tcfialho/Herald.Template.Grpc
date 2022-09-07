@@ -13,11 +13,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Herald.Observability.Jaeger" Version="1.0.0" />
+		<PackageReference Include="Herald.Web.Swagger" Version="2.0.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.42.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.42.0" />
-		<PackageReference Include="Herald.Web.Swagger" Version="1.2.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
 	</ItemGroup>
 
 	<ItemGroup>

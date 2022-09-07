@@ -29,24 +29,21 @@ namespace GrpcApi.Grpc
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGrpc();
-            services.AddGrpcHttpApi();
-            services.AddSwagger();
-            services.AddGrpcSwagger();
-            services.AddGrpcReflection();
-
-            services.AddHealthChecks();
-
             services.AddFeatures(Configuration);
-#if (!noqueue)
+#if (sqs || kafka || rabbitmq || azure)
             services.AddQueues(Configuration);
 #endif
 #if (!noexternalapi)
             services.AddWebServices(Configuration);
 #endif
-#if (!nodatabase)
+#if (postgre || mysql || sqlserver)
             services.AddRepositories(Configuration);
 #endif
+            services.AddGrpc();
+            services.AddGrpcHttpApi();
+            services.AddSwagger();
+            services.AddGrpcSwagger();
+            services.AddGrpcReflection();
             services.AddJaegerTracing(setup => Configuration.GetSection("JaegerOptions").Bind(setup));
             services.AddHealthChecks();
         }
